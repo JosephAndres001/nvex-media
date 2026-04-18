@@ -188,59 +188,82 @@
     /* ── Hero ── */
     #hero {
       min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 9rem 2rem 6rem;
-      position: relative; overflow: hidden;
+      display: grid;
+      grid-template-columns: 48% 52%;
+      position: relative;
+      overflow: hidden;
     }
 
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+    }
+
+    /* Grid bg */
     #hero::before {
       content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 65% -10%, rgba(79,110,247,0.14) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 0% 80%, rgba(42,70,200,0.08) 0%, transparent 55%);
-      pointer-events: none;
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(79,110,247,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79,110,247,0.045) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 100% 100% at 60% 50%, black 20%, transparent 75%);
     }
 
-    /* subtle grid lines */
+    /* Atmospheric radial glow */
     #hero::after {
       content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 80%);
-      pointer-events: none;
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 70% at 80% 50%, rgba(79,110,247,0.13) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(42,70,200,0.07) 0%, transparent 55%);
     }
 
-    .hero-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center;
-      position: relative; z-index: 1; width: 100%;
+    /* Scan line sweep */
+    .hero-scanline {
+      position: absolute; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(79,110,247,0.5) 40%, rgba(123,150,255,0.8) 50%, rgba(79,110,247,0.5) 60%, transparent 100%);
+      animation: scan 6s ease-in-out infinite;
+      pointer-events: none; z-index: 5;
     }
 
-    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; gap: 4rem; } }
+    @keyframes scan {
+      0%   { top: 0%; opacity: 0; }
+      5%   { opacity: 1; }
+      95%  { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    /* Left copy */
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3rem 6rem 4rem;
+      position: relative; z-index: 10;
+    }
+
+    @media (max-width: 900px) { .hero-left { padding: 8rem 2rem 3rem; } }
 
     .hero-title {
-      font-size: clamp(3rem, 5.5vw, 5rem); font-weight: 800;
-      color: var(--text); margin-bottom: 1.5rem;
+      font-size: clamp(3rem, 4.5vw, 5.5rem); font-weight: 800;
+      color: var(--text); margin-bottom: 1.5rem; line-height: 1.02;
     }
 
-    .hero-title .hi { color: var(--brand-light); }
+    .hero-title .hi {
+      background: linear-gradient(135deg, var(--brand-light) 0%, #A78BFA 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
     .hero-body {
-      font-size: 1.125rem; color: var(--text-soft);
-      line-height: 1.8; margin-bottom: 2.5rem; max-width: 44ch;
+      font-size: 1.1rem; color: var(--text-soft);
+      line-height: 1.8; margin-bottom: 2.5rem; max-width: 42ch;
     }
 
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
 
     .hero-proof {
-      margin-top: 2.5rem; padding-top: 2rem;
+      margin-top: 2.75rem; padding-top: 2rem;
       border-top: 1px solid var(--border);
-      display: flex; gap: 2.5rem; flex-wrap: wrap;
+      display: flex; gap: 2.75rem; flex-wrap: wrap;
     }
 
     .hero-stat-num {
@@ -249,38 +272,88 @@
       color: var(--text); letter-spacing: -0.04em; display: block;
     }
 
-    .hero-stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; }
+    .hero-stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.1rem; }
 
-    /* Hero right visual */
-    .hero-visual { position: relative; }
-
-    .hero-phone-card {
-      background: var(--surface-fl);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow:
-        0 1px 4px rgba(0,0,0,0.5),
-        0 8px 32px rgba(0,0,0,0.5),
-        0 32px 80px rgba(0,0,0,0.3);
+    /* Right: Spline — no card, no border, free float */
+    .hero-spline {
+      position: relative;
+      z-index: 3;
     }
 
-    .hero-img {
-      width: 100%; height: 280px;
-      object-fit: cover; display: block;
-      filter: brightness(0.9) saturate(0.85);
+    @media (max-width: 900px) { .hero-spline { height: 480px; } }
+
+    /* Atmospheric orb behind the robot */
+    .spline-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      top: 50%; left: 30%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(79,110,247,0.18) 0%, rgba(167,139,250,0.08) 40%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none; z-index: 0;
     }
 
-    .hero-card-info {
-      padding: 1.5rem 1.75rem;
-      background: var(--surface-fl);
+    spline-viewer {
+      position: relative; z-index: 2;
+      width: 100%; height: 100%;
+      display: block;
     }
 
-    .hero-card-status {
+    /* Floating HUD chips */
+    .hud-chip {
+      position: absolute; z-index: 20;
+      background: rgba(7,9,15,0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-hi);
+      border-radius: 8px;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-soft);
       display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.75rem; font-weight: 600;
-      color: #4ADE80; text-transform: uppercase; letter-spacing: 0.1em;
-      margin-bottom: 0.6rem;
+      pointer-events: none;
+    }
+
+    .hud-live {
+      top: 22%; left: 4%;
+      color: #4ADE80;
+      border-color: rgba(74,222,128,0.3);
+      animation: hudFade 1s ease 0.8s both;
+    }
+
+    .hud-stat-1 {
+      bottom: 28%; left: 3%;
+      flex-direction: column; align-items: flex-start; gap: 0.1rem;
+      animation: hudFade 1s ease 1s both;
+    }
+
+    .hud-stat-2 {
+      top: 38%; right: 4%;
+      flex-direction: column; align-items: flex-start; gap: 0.1rem;
+      animation: hudFade 1s ease 1.2s both;
+    }
+
+    .hud-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem; font-weight: 800;
+      color: var(--brand-light); letter-spacing: -0.03em; line-height: 1;
+    }
+
+    /* Corner bracket HUD decorations */
+    .hud-corner {
+      position: absolute; width: 20px; height: 20px;
+      border-color: rgba(79,110,247,0.4); border-style: solid;
+      pointer-events: none; z-index: 20;
+    }
+
+    .hud-corner-tl { top: 10%; left: 2%; border-width: 1px 0 0 1px; }
+    .hud-corner-tr { top: 10%; right: 2%; border-width: 1px 1px 0 0; }
+    .hud-corner-bl { bottom: 10%; left: 2%; border-width: 0 0 1px 1px; }
+    .hud-corner-br { bottom: 10%; right: 2%; border-width: 0 1px 1px 0; }
+
+    @keyframes hudFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .live-dot {
@@ -290,114 +363,6 @@
     }
 
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
-
-    /* ── Spline card / Spotlight ── */
-    .spline-card {
-      position: relative;
-      background: rgba(7,9,15,0.96);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      height: 480px;
-      box-shadow:
-        0 1px 4px rgba(0,0,0,0.5),
-        0 8px 32px rgba(0,0,0,0.5),
-        0 32px 80px rgba(0,0,0,0.3);
-      display: flex;
-    }
-
-    /* SVG spotlight beam */
-    .spotlight-svg {
-      pointer-events: none;
-      position: absolute;
-      z-index: 1;
-      height: 169%;
-      width: 138%;
-      top: -40%;
-      left: -10%;
-      opacity: 0;
-      animation: spotAnim 2s ease 0.5s forwards;
-    }
-
-    @keyframes spotAnim {
-      0%   { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
-      100% { opacity: 1; transform: translate(-5%, -20%) scale(1); }
-    }
-
-    /* mouse-tracked spotlight */
-    .mouse-spotlight {
-      pointer-events: none;
-      position: absolute;
-      border-radius: 50%;
-      width: 280px; height: 280px;
-      background: radial-gradient(circle at center, rgba(79,110,247,0.18) 0%, transparent 70%);
-      filter: blur(32px);
-      opacity: 0;
-      transition: opacity 200ms ease;
-      z-index: 1;
-      transform: translate(-50%, -50%);
-    }
-
-    .spline-card:hover .mouse-spotlight { opacity: 1; }
-
-    .spline-card-left {
-      flex: 1; padding: 2.25rem 2rem;
-      position: relative; z-index: 10;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-
-    .spline-card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.6rem, 2.5vw, 2.25rem);
-      font-weight: 800;
-      background: linear-gradient(to bottom, #fff 0%, rgba(200,210,255,0.6) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-    }
-
-    .spline-card-desc {
-      font-size: 0.9rem;
-      color: rgba(200,210,255,0.65);
-      line-height: 1.75;
-      max-width: 26ch;
-    }
-
-    .spline-card-right {
-      flex: 1; position: relative;
-    }
-
-    spline-viewer {
-      width: 100%; height: 100%;
-      display: block;
-    }
-
-    .hero-card-headline {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.15rem; font-weight: 800;
-      color: var(--text); letter-spacing: -0.02em;
-    }
-
-    .hero-metrics {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0.75rem; margin-top: 1.25rem;
-    }
-
-    .hero-metric {
-      background: var(--surface-hi);
-      border: 1px solid var(--border);
-      border-radius: 10px; padding: 0.85rem 1rem;
-    }
-
-    .hero-metric-val {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.3rem; font-weight: 800;
-      color: var(--brand-light); letter-spacing: -0.03em; display: block;
-    }
-
-    .hero-metric-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.1rem; }
 
     /* ── Ticker ── */
     .ticker-wrap {
@@ -1076,81 +1041,71 @@
 
   <!-- ── Hero ── -->
   <section id="hero">
-    <div class="hero-inner">
-      <!-- Copy -->
-      <div>
-        <div class="eyebrow">
-          <span class="eyebrow-dot"></span>Lead Acquisition · AI Receptionist
+    <!-- scan line sweep -->
+    <div class="hero-scanline"></div>
+
+    <!-- Left: copy -->
+    <div class="hero-left">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>Lead Acquisition · AI Receptionist
+      </div>
+      <h1 class="hero-title">
+        More Leads.<br>
+        <span class="hi">Never Miss</span><br>
+        a Call.
+      </h1>
+      <p class="hero-body">
+        Nvex Media captures leads online and handles every inbound call — 24 hours a day, 7 days a week — so your business keeps growing while you sleep.
+      </p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Book a Free Call
+        </a>
+        <a href="#services" class="btn btn-outline">See How It Works</a>
+      </div>
+      <div class="hero-proof">
+        <div>
+          <span class="hero-stat-num">100%</span>
+          <div class="hero-stat-label">Call answer rate</div>
         </div>
-        <h1 class="hero-title">
-          More Leads.<br>
-          <span class="hi">Never Miss</span><br>
-          a Call.
-        </h1>
-        <p class="hero-body">
-          Nvex Media captures leads online and handles every inbound call — 24 hours a day, 7 days a week — so your business keeps growing while you sleep.
-        </p>
-        <div class="hero-btns">
-          <a href="#contact" class="btn btn-primary">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            Book a Free Call
-          </a>
-          <a href="#services" class="btn btn-outline">See How It Works</a>
+        <div>
+          <span class="hero-stat-num">3×</span>
+          <div class="hero-stat-label">More leads captured</div>
         </div>
-        <div class="hero-proof">
-          <div>
-            <span class="hero-stat-num">100%</span>
-            <div class="hero-stat-label">Call answer rate</div>
-          </div>
-          <div>
-            <span class="hero-stat-num">3×</span>
-            <div class="hero-stat-label">More leads captured</div>
-          </div>
-          <div>
-            <span class="hero-stat-num">&lt;5d</span>
-            <div class="hero-stat-label">Live from sign-up</div>
-          </div>
+        <div>
+          <span class="hero-stat-num">&lt;5d</span>
+          <div class="hero-stat-label">Live from sign-up</div>
         </div>
       </div>
+    </div>
 
-      <!-- Visual: Spline 3D card -->
-      <div class="hero-visual">
-        <div class="spline-card" id="splineCard">
-          <!-- animated SVG spotlight beam -->
-          <svg class="spotlight-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3787 2842" fill="none">
-            <g filter="url(#sf)">
-              <ellipse cx="1924.71" cy="273.501" rx="1924.71" ry="273.501"
-                transform="matrix(-0.822377 -0.568943 -0.568943 0.822377 3631.88 2291.09)"
-                fill="white" fill-opacity="0.18"/>
-            </g>
-            <defs>
-              <filter id="sf" x="0.86" y="0.84" width="3785.16" height="2840.26"
-                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                <feFlood flood-opacity="0" result="bg"/>
-                <feBlend mode="normal" in="SourceGraphic" in2="bg" result="shape"/>
-                <feGaussianBlur stdDeviation="151" result="blur"/>
-              </filter>
-            </defs>
-          </svg>
+    <!-- Right: Spline — no card, no border, free in space -->
+    <div class="hero-spline">
+      <!-- atmospheric orb -->
+      <div class="spline-glow"></div>
 
-          <!-- mouse-tracked spotlight -->
-          <div class="mouse-spotlight" id="mouseSpot"></div>
+      <!-- HUD corner brackets -->
+      <div class="hud-corner hud-corner-tl"></div>
+      <div class="hud-corner hud-corner-tr"></div>
+      <div class="hud-corner hud-corner-bl"></div>
+      <div class="hud-corner hud-corner-br"></div>
 
-          <!-- left text -->
-          <div class="spline-card-left">
-            <div class="hero-card-status" style="margin-bottom:1rem;">
-              <span class="live-dot"></span> Live — answering calls now
-            </div>
-            <div class="spline-card-title">AI Receptionist<br>in Action</div>
-            <p class="spline-card-desc">Interactive 3D — drag to explore. Your AI handles every call like this, 24/7.</p>
-          </div>
-
-          <!-- right: Spline 3D -->
-          <div class="spline-card-right">
-            <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
-          </div>
-        </div>
+      <!-- floating HUD chips -->
+      <div class="hud-chip hud-live">
+        <span class="live-dot"></span> AI · LIVE NOW
       </div>
+      <div class="hud-chip hud-stat-1">
+        <div class="hud-val">100%</div>
+        <span>Calls Answered</span>
+      </div>
+      <div class="hud-chip hud-stat-2">
+        <div class="hud-val">24/7</div>
+        <span>Always Active</span>
+      </div>
+
+      <!-- Spline 3D scene — unrestricted -->
+      <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
     </div>
   </section>
 
@@ -1680,16 +1635,6 @@
       this.reset();
     });
 
-    // Mouse-tracked spotlight on Spline card
-    const card = document.getElementById('splineCard');
-    const spot = document.getElementById('mouseSpot');
-    if (card && spot) {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        spot.style.left = (e.clientX - rect.left) + 'px';
-        spot.style.top  = (e.clientY - rect.top)  + 'px';
-      });
-    }
   </script>
 </body>
 </html>
