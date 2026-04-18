@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.48/build/spline-viewer.js"></script>
   <style>
     :root {
       --brand:       #4F6EF7;
@@ -289,6 +290,89 @@
     }
 
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+
+    /* ── Spline card / Spotlight ── */
+    .spline-card {
+      position: relative;
+      background: rgba(7,9,15,0.96);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      height: 480px;
+      box-shadow:
+        0 1px 4px rgba(0,0,0,0.5),
+        0 8px 32px rgba(0,0,0,0.5),
+        0 32px 80px rgba(0,0,0,0.3);
+      display: flex;
+    }
+
+    /* SVG spotlight beam */
+    .spotlight-svg {
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+      height: 169%;
+      width: 138%;
+      top: -40%;
+      left: -10%;
+      opacity: 0;
+      animation: spotAnim 2s ease 0.5s forwards;
+    }
+
+    @keyframes spotAnim {
+      0%   { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
+      100% { opacity: 1; transform: translate(-5%, -20%) scale(1); }
+    }
+
+    /* mouse-tracked spotlight */
+    .mouse-spotlight {
+      pointer-events: none;
+      position: absolute;
+      border-radius: 50%;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle at center, rgba(79,110,247,0.18) 0%, transparent 70%);
+      filter: blur(32px);
+      opacity: 0;
+      transition: opacity 200ms ease;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    .spline-card:hover .mouse-spotlight { opacity: 1; }
+
+    .spline-card-left {
+      flex: 1; padding: 2.25rem 2rem;
+      position: relative; z-index: 10;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+
+    .spline-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.25rem);
+      font-weight: 800;
+      background: linear-gradient(to bottom, #fff 0%, rgba(200,210,255,0.6) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .spline-card-desc {
+      font-size: 0.9rem;
+      color: rgba(200,210,255,0.65);
+      line-height: 1.75;
+      max-width: 26ch;
+    }
+
+    .spline-card-right {
+      flex: 1; position: relative;
+    }
+
+    spline-viewer {
+      width: 100%; height: 100%;
+      display: block;
+    }
 
     .hero-card-headline {
       font-family: 'Syne', sans-serif;
@@ -827,25 +911,41 @@
         </div>
       </div>
 
-      <!-- Visual -->
+      <!-- Visual: Spline 3D card -->
       <div class="hero-visual">
-        <div class="hero-phone-card">
-          <img class="hero-img" src="images/hero-dashboard.jpg" alt="AI receptionist dashboard" />
-          <div class="hero-card-info">
-            <div class="hero-card-status">
+        <div class="spline-card" id="splineCard">
+          <!-- animated SVG spotlight beam -->
+          <svg class="spotlight-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3787 2842" fill="none">
+            <g filter="url(#sf)">
+              <ellipse cx="1924.71" cy="273.501" rx="1924.71" ry="273.501"
+                transform="matrix(-0.822377 -0.568943 -0.568943 0.822377 3631.88 2291.09)"
+                fill="white" fill-opacity="0.18"/>
+            </g>
+            <defs>
+              <filter id="sf" x="0.86" y="0.84" width="3785.16" height="2840.26"
+                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="bg"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="bg" result="shape"/>
+                <feGaussianBlur stdDeviation="151" result="blur"/>
+              </filter>
+            </defs>
+          </svg>
+
+          <!-- mouse-tracked spotlight -->
+          <div class="mouse-spotlight" id="mouseSpot"></div>
+
+          <!-- left text -->
+          <div class="spline-card-left">
+            <div class="hero-card-status" style="margin-bottom:1rem;">
               <span class="live-dot"></span> Live — answering calls now
             </div>
-            <div class="hero-card-headline">Your AI receptionist never sleeps, never misses a lead.</div>
-            <div class="hero-metrics">
-              <div class="hero-metric">
-                <span class="hero-metric-val">24/7</span>
-                <div class="hero-metric-label">Always on</div>
-              </div>
-              <div class="hero-metric">
-                <span class="hero-metric-val">0</span>
-                <div class="hero-metric-label">Missed calls</div>
-              </div>
-            </div>
+            <div class="spline-card-title">AI Receptionist<br>in Action</div>
+            <p class="spline-card-desc">Interactive 3D — drag to explore. Your AI handles every call like this, 24/7.</p>
+          </div>
+
+          <!-- right: Spline 3D -->
+          <div class="spline-card-right">
+            <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"></spline-viewer>
           </div>
         </div>
       </div>
@@ -1222,6 +1322,7 @@
   </footer>
 
   <script>
+    // Contact form toast
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const toast = document.getElementById('toast');
@@ -1229,6 +1330,17 @@
       setTimeout(() => toast.classList.remove('show'), 5000);
       this.reset();
     });
+
+    // Mouse-tracked spotlight on Spline card
+    const card = document.getElementById('splineCard');
+    const spot = document.getElementById('mouseSpot');
+    if (card && spot) {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        spot.style.left = (e.clientX - rect.left) + 'px';
+        spot.style.top  = (e.clientY - rect.top)  + 'px';
+      });
+    }
   </script>
 </body>
 </html>
