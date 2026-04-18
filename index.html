@@ -9,20 +9,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* ── Tokens ── */
     :root {
-      --brand:        #0E9F6E;
-      --brand-light:  #34D399;
-      --brand-dark:   #065F46;
-      --brand-glow:   rgba(14,159,110,0.22);
-      --surface:      #080C0A;
-      --surface-el:   #0D1410;
-      --surface-fl:   #121A16;
-      --border:       rgba(14,159,110,0.14);
-      --border-hi:    rgba(52,211,153,0.28);
-      --text:         #EAF2EE;
-      --text-muted:   #7A9189;
-      --radius:       10px;
+      --brand:       #4F6EF7;
+      --brand-light: #7B96FF;
+      --brand-dark:  #2A46C8;
+      --brand-glow:  rgba(79,110,247,0.2);
+
+      --surface:     #07090F;
+      --surface-el:  #0D1018;
+      --surface-fl:  #131824;
+      --surface-hi:  #1A2133;
+
+      --border:      rgba(255,255,255,0.07);
+      --border-hi:   rgba(79,110,247,0.35);
+
+      --text:        #E8EEFF;
+      --text-muted:  #6B7A99;
+      --text-soft:   #9AAACB;
+
+      --radius:      10px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,66 +42,57 @@
       font-size: 17px;
     }
 
-    /* noise */
+    /* noise grain */
     body::after {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       pointer-events: none;
       z-index: 9999;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
     h1, h2, h3, h4 {
       font-family: 'Syne', sans-serif;
       letter-spacing: -0.03em;
-      line-height: 1.08;
+      line-height: 1.1;
     }
 
     /* ── Nav ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
+      position: fixed; top: 0; left: 0; right: 0;
       z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 2.5rem;
-      background: rgba(8,12,10,0.8);
-      backdrop-filter: blur(14px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(7,9,15,0.82);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
-    .nav-logo {
+    .logo {
       font-family: 'Syne', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 800;
+      font-size: 1.15rem; font-weight: 800;
       color: var(--text);
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      display: flex; align-items: center; gap: 0.6rem;
     }
 
-    .nav-logo-mark {
-      width: 28px; height: 28px;
+    .logo-mark {
+      width: 30px; height: 30px;
       background: var(--brand);
-      border-radius: 7px;
+      border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 12px var(--brand-glow);
+      box-shadow: 0 0 14px var(--brand-glow);
     }
 
-    .nav-logo-mark svg { color: #fff; }
+    .logo-mark svg { color: #fff; }
 
     .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
 
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
+      font-size: 0.875rem; font-weight: 500;
       transition: color 180ms ease;
     }
 
@@ -104,949 +100,664 @@
     .nav-links a:focus-visible { outline: 2px solid var(--brand-light); outline-offset: 4px; border-radius: 3px; }
 
     .nav-cta {
-      background: var(--brand) !important;
-      color: #fff !important;
-      padding: 0.5rem 1.25rem;
-      border-radius: var(--radius);
-      font-weight: 600;
-      font-size: 0.875rem;
-      box-shadow: 0 2px 8px var(--brand-glow);
+      background: var(--brand) !important; color: #fff !important;
+      padding: 0.5rem 1.25rem; border-radius: var(--radius);
+      font-weight: 600; font-size: 0.875rem;
+      box-shadow: 0 2px 12px var(--brand-glow);
       transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease !important;
     }
 
     .nav-cta:hover {
       background: var(--brand-light) !important;
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(52,211,153,0.4) !important;
+      box-shadow: 0 4px 20px rgba(123,150,255,0.35) !important;
     }
 
     .nav-cta:active { transform: translateY(0) !important; }
 
-    /* ── Shared layout ── */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-    section { padding: 7rem 1.5rem; }
+    @media (max-width: 640px) { nav { padding: 1rem 1.25rem; } .nav-links { display: none; } }
 
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+    /* ── Shared ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    section { padding: 7rem 2rem; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
       color: var(--brand-light);
-      border: 1px solid var(--border-hi);
-      padding: 0.3rem 0.9rem;
-      border-radius: 999px;
       margin-bottom: 1.25rem;
     }
 
-    .tag-dot {
-      width: 6px; height: 6px;
-      background: var(--brand-light);
-      border-radius: 50%;
-      box-shadow: 0 0 6px var(--brand-light);
+    .eyebrow-dot {
+      width: 6px; height: 6px; background: var(--brand-light);
+      border-radius: 50%; box-shadow: 0 0 6px var(--brand-light);
     }
 
     .section-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--brand-light);
-      margin-bottom: 0.75rem;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--brand-light); display: block; margin-bottom: 0.75rem;
     }
 
     .section-title {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 1.1rem;
+      font-size: clamp(2rem, 3.5vw, 2.75rem); font-weight: 800;
+      color: var(--text); margin-bottom: 1rem;
     }
 
     .section-sub {
-      font-size: 1.0625rem;
-      color: var(--text-muted);
-      max-width: 50ch;
-      line-height: 1.75;
+      font-size: 1.05rem; color: var(--text-soft);
+      max-width: 52ch; line-height: 1.8;
     }
 
     /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.875rem 2rem; border-radius: var(--radius);
+      font-family: 'Inter', sans-serif; font-size: 0.9375rem; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .btn:focus-visible { outline: 2px solid var(--brand-light); outline-offset: 3px; }
+    .btn:active { transform: translateY(1px) !important; }
+
     .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--brand);
-      color: #fff;
-      padding: 0.9rem 2rem;
-      border-radius: var(--radius);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9375rem;
-      font-weight: 600;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      box-shadow:
-        0 1px 3px rgba(0,0,0,0.3),
-        0 4px 12px var(--brand-glow),
-        0 12px 32px rgba(14,159,110,0.12);
-      transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+      background: var(--brand); color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 4px 16px var(--brand-glow);
     }
 
     .btn-primary:hover {
       background: var(--brand-light);
       transform: translateY(-2px);
-      box-shadow:
-        0 2px 6px rgba(0,0,0,0.3),
-        0 8px 24px rgba(52,211,153,0.4),
-        0 24px 48px rgba(14,159,110,0.18);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4), 0 8px 28px rgba(123,150,255,0.35);
     }
 
-    .btn-primary:focus-visible { outline: 2px solid var(--brand-light); outline-offset: 3px; }
-    .btn-primary:active { transform: translateY(1px); box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: transparent;
-      color: var(--text-muted);
-      padding: 0.9rem 2rem;
-      border-radius: var(--radius);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9375rem;
-      font-weight: 500;
-      text-decoration: none;
-      border: 1px solid rgba(234,242,238,0.14);
-      cursor: pointer;
-      transition: color 180ms ease, border-color 180ms ease, transform 180ms ease;
+    .btn-outline {
+      background: transparent; color: var(--text-soft);
+      border: 1px solid var(--border);
     }
 
-    .btn-ghost:hover { color: var(--text); border-color: rgba(234,242,238,0.3); transform: translateY(-1px); }
-    .btn-ghost:focus-visible { outline: 2px solid var(--brand-light); outline-offset: 3px; }
-    .btn-ghost:active { transform: translateY(0); }
+    .btn-outline:hover {
+      color: var(--text); border-color: rgba(255,255,255,0.2);
+      transform: translateY(-1px);
+    }
 
     /* ── Hero ── */
     #hero {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 9rem 1.5rem 6rem;
-      position: relative;
-      overflow: hidden;
+      display: flex; align-items: center;
+      padding: 9rem 2rem 6rem;
+      position: relative; overflow: hidden;
     }
 
     #hero::before {
       content: '';
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 70% 55% at 60% 0%, rgba(14,159,110,0.16) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 45% at 5% 80%, rgba(6,95,70,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 35% 35% at 95% 60%, rgba(14,159,110,0.07) 0%, transparent 55%);
+        radial-gradient(ellipse 80% 60% at 65% -10%, rgba(79,110,247,0.14) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 0% 80%, rgba(42,70,200,0.08) 0%, transparent 55%);
       pointer-events: none;
     }
 
-    .hero-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      position: relative;
-      z-index: 1;
+    /* subtle grid lines */
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 80%);
+      pointer-events: none;
     }
 
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+      position: relative; z-index: 1; width: 100%;
     }
 
-    .hero-eyebrow { margin-bottom: 1.5rem; }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; gap: 4rem; } }
 
     .hero-title {
-      font-size: clamp(2.75rem, 6vw, 5rem);
-      font-weight: 800;
-      line-height: 1.04;
-      color: var(--text);
-      margin-bottom: 1.5rem;
+      font-size: clamp(3rem, 5.5vw, 5rem); font-weight: 800;
+      color: var(--text); margin-bottom: 1.5rem;
     }
 
-    .hero-title .accent { color: var(--brand-light); }
+    .hero-title .hi { color: var(--brand-light); }
 
     .hero-body {
-      font-size: 1.125rem;
-      color: var(--text-muted);
-      line-height: 1.8;
-      margin-bottom: 2.5rem;
-      max-width: 44ch;
+      font-size: 1.125rem; color: var(--text-soft);
+      line-height: 1.8; margin-bottom: 2.5rem; max-width: 44ch;
     }
 
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-    .hero-trust {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-top: 2.5rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
+    .hero-proof {
+      margin-top: 2.5rem; padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
     }
 
-    .hero-trust-avatars {
-      display: flex;
+    .hero-stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.75rem; font-weight: 800;
+      color: var(--text); letter-spacing: -0.04em; display: block;
     }
 
-    .hero-trust-avatar {
-      width: 30px; height: 30px;
-      border-radius: 50%;
-      border: 2px solid var(--surface);
-      background: var(--surface-fl);
-      overflow: hidden;
-      margin-left: -8px;
-    }
+    .hero-stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; }
 
-    .hero-trust-avatar:first-child { margin-left: 0; }
+    /* Hero right visual */
+    .hero-visual { position: relative; }
 
-    .hero-trust-avatar img { width: 100%; height: 100%; object-fit: cover; }
-
-    /* Hero visual */
-    .hero-visual {
-      position: relative;
-    }
-
-    .hero-card-main {
+    .hero-phone-card {
       background: var(--surface-fl);
       border: 1px solid var(--border);
       border-radius: 20px;
       overflow: hidden;
       box-shadow:
-        0 1px 3px rgba(0,0,0,0.3),
-        0 8px 32px rgba(0,0,0,0.4),
-        0 24px 64px rgba(0,0,0,0.3);
+        0 1px 4px rgba(0,0,0,0.5),
+        0 8px 32px rgba(0,0,0,0.5),
+        0 32px 80px rgba(0,0,0,0.3);
     }
 
-    .hero-img-wrap {
-      position: relative;
-      height: 300px;
-      overflow: hidden;
+    .hero-img {
+      width: 100%; height: 280px;
+      object-fit: cover; display: block;
+      filter: brightness(0.9) saturate(0.85);
     }
 
-    .hero-img-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .hero-img-wrap::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(18,26,22,0.9) 0%, rgba(18,26,22,0.2) 60%, transparent 100%);
-    }
-
-    .hero-card-body {
+    .hero-card-info {
       padding: 1.5rem 1.75rem;
-    }
-
-    .hero-card-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--brand-light);
-      margin-bottom: 0.4rem;
-    }
-
-    .hero-card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.02em;
-    }
-
-    /* floating stat cards */
-    .hero-stat-card {
-      position: absolute;
       background: var(--surface-fl);
-      border: 1px solid var(--border-hi);
-      border-radius: 14px;
-      padding: 1rem 1.25rem;
-      box-shadow:
-        0 2px 8px rgba(0,0,0,0.35),
-        0 8px 24px rgba(14,159,110,0.1);
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      animation: floatA 4s ease-in-out infinite;
     }
 
-    .hero-stat-card-2 { animation: floatB 4.5s ease-in-out infinite; }
-
-    @keyframes floatA {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    .hero-card-status {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 600;
+      color: #4ADE80; text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
     }
 
-    @keyframes floatB {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
+    .live-dot {
+      width: 7px; height: 7px; background: #4ADE80;
+      border-radius: 50%; box-shadow: 0 0 7px #4ADE80;
+      animation: pulse 2s ease-in-out infinite;
     }
 
-    .hsc-top { top: -1.5rem; right: -1.25rem; }
-    .hsc-bot { bottom: -1.25rem; left: -1rem; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
 
-    .hsc-icon {
-      width: 38px; height: 38px;
-      background: rgba(14,159,110,0.15);
-      border: 1px solid var(--border-hi);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; flex-shrink: 0;
-    }
-
-    .hsc-num {
+    .hero-card-headline {
       font-family: 'Syne', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.02em;
-      line-height: 1;
+      font-size: 1.15rem; font-weight: 800;
+      color: var(--text); letter-spacing: -0.02em;
     }
 
-    .hsc-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.1rem; }
+    .hero-metrics {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.75rem; margin-top: 1.25rem;
+    }
+
+    .hero-metric {
+      background: var(--surface-hi);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.85rem 1rem;
+    }
+
+    .hero-metric-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--brand-light); letter-spacing: -0.03em; display: block;
+    }
+
+    .hero-metric-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.1rem; }
 
     /* ── Ticker ── */
     .ticker-wrap {
       background: var(--surface-el);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 0.85rem 0;
-      overflow: hidden;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 0.85rem 0; overflow: hidden;
     }
 
     .ticker-track {
-      display: flex;
-      animation: ticker 32s linear infinite;
-      white-space: nowrap;
+      display: flex; animation: ticker 36s linear infinite; white-space: nowrap;
     }
 
     .ticker-track:hover { animation-play-state: paused; }
 
     .ticker-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0 2.75rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      padding: 0 3rem;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
       color: var(--text-muted);
     }
 
-    .ticker-sep {
-      width: 4px; height: 4px;
-      background: var(--brand);
-      border-radius: 50%;
-      flex-shrink: 0;
+    .ticker-dot {
+      width: 4px; height: 4px; background: var(--brand);
+      border-radius: 50%; flex-shrink: 0;
     }
 
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* ── Problem → Solution ── */
+    /* ── Problem ── */
     #problem { background: var(--surface-el); }
 
-    .ps-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
+    .problem-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
     }
 
-    @media (max-width: 860px) { .ps-grid { grid-template-columns: 1fr; gap: 3rem; } }
+    @media (max-width: 860px) { .problem-grid { grid-template-columns: 1fr; gap: 3.5rem; } }
 
-    .ps-img-wrap {
-      position: relative;
-      border-radius: 18px;
-      overflow: hidden;
+    .problem-img-wrap {
+      border-radius: 18px; overflow: hidden;
       aspect-ratio: 4/5;
-      box-shadow:
-        0 2px 8px rgba(0,0,0,0.4),
-        0 16px 48px rgba(0,0,0,0.45);
       border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 24px 64px rgba(0,0,0,0.4);
+      position: relative;
     }
 
-    .ps-img-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
+    .problem-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.75) saturate(0.7);
     }
 
-    .ps-img-wrap::after {
+    .problem-img-wrap::after {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(13,20,16,0.7) 0%, transparent 60%);
+      background: linear-gradient(to top, rgba(13,16,24,0.85) 0%, transparent 55%);
     }
 
-    .ps-badge {
-      position: absolute;
-      bottom: 1.5rem; left: 1.5rem;
+    .problem-badge {
+      position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;
       z-index: 2;
-      background: rgba(8,12,10,0.85);
-      backdrop-filter: blur(10px);
+      background: rgba(13,16,24,0.9);
+      backdrop-filter: blur(12px);
       border: 1px solid var(--border-hi);
-      border-radius: 12px;
-      padding: 0.9rem 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      border-radius: 12px; padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 1rem;
     }
 
-    .ps-badge-icon { font-size: 1.4rem; }
+    .problem-badge-icon { font-size: 1.5rem; flex-shrink: 0; }
 
-    .ps-badge-text strong {
-      display: block;
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--text);
+    .problem-badge strong {
+      display: block; font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 800; color: var(--text);
       letter-spacing: -0.02em;
-      line-height: 1.1;
     }
 
-    .ps-badge-text span { font-size: 0.78rem; color: var(--text-muted); }
+    .problem-badge span { font-size: 0.8rem; color: var(--text-muted); }
 
-    .pain-list { list-style: none; display: flex; flex-direction: column; gap: 1.1rem; margin: 2rem 0; }
+    .pain-cards { display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0 2.5rem; }
 
-    .pain-item {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      padding: 1.1rem 1.25rem;
+    .pain-card {
       background: var(--surface-fl);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
     }
 
-    .pain-icon {
-      font-size: 1.2rem;
-      flex-shrink: 0;
-      margin-top: 0.05rem;
+    .pain-card-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: rgba(79,110,247,0.1);
+      border: 1px solid rgba(79,110,247,0.2);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
     }
 
-    .pain-title { font-weight: 600; color: var(--text); font-size: 0.95rem; margin-bottom: 0.15rem; }
-    .pain-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
+    .pain-card-title { font-weight: 600; color: var(--text); font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .pain-card-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
 
     /* ── Services ── */
-    #services { background: var(--surface); position: relative; overflow: hidden; }
+    #services { background: var(--surface); }
 
-    #services::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(14,159,110,0.08) 0%, transparent 65%);
-      pointer-events: none;
-    }
+    .services-inner { max-width: 1200px; margin: 0 auto; }
 
-    .services-header {
-      text-align: center;
-      max-width: 640px;
-      margin: 0 auto 5rem;
-    }
+    .services-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
 
     .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      display: grid; grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
     }
 
-    /* Feature card */
-    .feat-card {
+    @media (max-width: 720px) { .services-grid { grid-template-columns: 1fr; } }
+
+    .svc-card {
       background: var(--surface-fl);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 2.25rem;
-      position: relative;
-      overflow: hidden;
+      border-radius: 18px; padding: 2.25rem;
       transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
-      box-shadow:
-        0 1px 3px rgba(0,0,0,0.25),
-        0 4px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+      position: relative; overflow: hidden;
     }
 
-    .feat-card::before {
+    .svc-card::after {
       content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 2px;
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(90deg, transparent, var(--brand), transparent);
-      opacity: 0;
-      transition: opacity 300ms ease;
+      opacity: 0; transition: opacity 280ms ease;
     }
 
-    .feat-card:hover {
-      transform: translateY(-6px);
+    .svc-card:hover {
+      transform: translateY(-5px);
       border-color: var(--border-hi);
-      box-shadow:
-        0 2px 8px rgba(0,0,0,0.3),
-        0 12px 40px rgba(14,159,110,0.12),
-        0 32px 64px rgba(0,0,0,0.25);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35), 0 16px 48px rgba(79,110,247,0.1), 0 32px 64px rgba(0,0,0,0.3);
     }
 
-    .feat-card:hover::before { opacity: 1; }
+    .svc-card:hover::after { opacity: 1; }
 
-    .feat-icon {
-      width: 52px; height: 52px;
-      background: rgba(14,159,110,0.1);
-      border: 1px solid var(--border-hi);
-      border-radius: 13px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .feat-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 0.65rem;
-      letter-spacing: -0.02em;
-    }
-
-    .feat-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.5rem; }
-
-    .feat-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
-
-    .feat-list li {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.855rem;
-      color: var(--text-muted);
-    }
-
-    .feat-list li::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: var(--brand-light);
-      border-radius: 50%;
-      flex-shrink: 0;
-      box-shadow: 0 0 5px var(--brand-light);
-    }
-
-    /* Highlight card (wide) */
-    .feat-card-wide {
+    /* wide card spanning full width */
+    .svc-card-wide {
       grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center;
+      padding: 2.5rem;
     }
 
-    @media (max-width: 720px) {
-      .feat-card-wide { grid-column: auto; grid-template-columns: 1fr; }
-    }
+    @media (max-width: 720px) { .svc-card-wide { grid-column: auto; grid-template-columns: 1fr; } }
 
-    .feat-card-wide .feat-img {
-      border-radius: 12px;
-      overflow: hidden;
+    .svc-card-wide .svc-img {
+      border-radius: 12px; overflow: hidden;
       aspect-ratio: 16/9;
     }
 
-    .feat-card-wide .feat-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: brightness(0.85) saturate(0.9);
+    .svc-card-wide .svc-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.8) saturate(0.75);
     }
 
-    .feat-card-wide .feat-img::after { display: none; }
+    .svc-icon {
+      width: 50px; height: 50px;
+      background: rgba(79,110,247,0.1);
+      border: 1px solid rgba(79,110,247,0.25);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1.5rem;
+    }
+
+    .svc-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem; font-weight: 800;
+      color: var(--text); letter-spacing: -0.02em; margin-bottom: 0.65rem;
+    }
+
+    .svc-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.5rem; }
+
+    .svc-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+
+    .svc-list li {
+      display: flex; align-items: center; gap: 0.65rem;
+      font-size: 0.875rem; color: var(--text-soft);
+    }
+
+    .svc-list li::before {
+      content: '';
+      width: 5px; height: 5px; background: var(--brand-light);
+      border-radius: 50%; flex-shrink: 0;
+    }
 
     /* ── How It Works ── */
     #how { background: var(--surface-el); }
 
-    .how-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
+    .how-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
     }
 
-    @media (max-width: 860px) { .how-grid { grid-template-columns: 1fr; gap: 3.5rem; } }
+    @media (max-width: 860px) { .how-inner { grid-template-columns: 1fr; gap: 3.5rem; } }
 
-    .steps { display: flex; flex-direction: column; gap: 0; }
+    .how-img-wrap {
+      border-radius: 18px; overflow: hidden;
+      aspect-ratio: 3/4;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+
+    .how-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.8) saturate(0.75);
+    }
+
+    .steps { display: flex; flex-direction: column; gap: 0; padding-top: 0.5rem; }
 
     .step {
-      display: flex;
-      gap: 1.5rem;
-      padding: 1.75rem 0;
+      display: flex; gap: 1.5rem; padding: 1.75rem 0;
       border-bottom: 1px solid var(--border);
-      position: relative;
     }
 
     .step:last-child { border-bottom: none; }
 
-    .step-num-wrap { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0; }
-
     .step-num {
-      width: 44px; height: 44px;
+      width: 42px; height: 42px; flex-shrink: 0;
       background: linear-gradient(135deg, var(--brand-dark), var(--brand));
-      border-radius: 12px;
+      border-radius: 11px;
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #fff;
+      font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: #fff;
       box-shadow: 0 4px 14px var(--brand-glow);
-      flex-shrink: 0;
     }
 
-    .step-title { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 0.35rem; letter-spacing: -0.02em; }
+    .step-title {
+      font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800;
+      color: var(--text); letter-spacing: -0.02em; margin-bottom: 0.35rem;
+    }
+
     .step-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
-
-    .how-visual {
-      position: relative;
-      border-radius: 20px;
-      overflow: hidden;
-      aspect-ratio: 3/4;
-      box-shadow:
-        0 2px 8px rgba(0,0,0,0.4),
-        0 16px 48px rgba(0,0,0,0.45);
-      border: 1px solid var(--border);
-    }
-
-    .how-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .how-visual::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(13,20,16,0.65) 0%, transparent 55%);
-    }
 
     /* ── Results ── */
     #results { background: var(--surface); }
 
-    .results-header { max-width: 580px; margin-bottom: 4rem; }
+    .results-inner { max-width: 1200px; margin: 0 auto; }
 
-    .results-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 5rem;
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem; margin: 3.5rem 0 4.5rem;
     }
 
-    .result-card {
+    @media (max-width: 720px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+
+    .stat-box {
       background: var(--surface-fl);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem 1.75rem;
+      border-radius: 14px; padding: 1.75rem 1.5rem;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      transition: transform 220ms ease, border-color 220ms ease;
+      transition: border-color 220ms ease, transform 220ms ease;
     }
 
-    .result-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--border-hi);
-    }
+    .stat-box:hover { border-color: var(--border-hi); transform: translateY(-3px); }
 
-    .result-num {
+    .stat-num {
       font-family: 'Syne', sans-serif;
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--brand-light);
-      letter-spacing: -0.04em;
-      line-height: 1;
-      margin-bottom: 0.4rem;
+      font-size: 2.75rem; font-weight: 800;
+      color: var(--brand-light); letter-spacing: -0.05em;
+      display: block; margin-bottom: 0.4rem;
     }
 
-    .result-label { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+    .stat-label { font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; }
 
-    /* testimonial row */
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
+    /* testimonials */
+    .testimonials {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
     }
 
-    .testimonial-card {
+    @media (max-width: 860px) { .testimonials { grid-template-columns: 1fr; } }
+
+    .tcard {
       background: var(--surface-fl);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.75rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      border-radius: 14px; padding: 1.75rem;
     }
 
-    .testimonial-stars { color: var(--brand-light); font-size: 1rem; margin-bottom: 0.9rem; letter-spacing: 0.08em; }
+    .tcard-stars { color: #F59E0B; font-size: 0.9rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
 
-    .testimonial-text { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.25rem; font-style: italic; }
-
-    .testimonial-author { display: flex; align-items: center; gap: 0.85rem; }
-
-    .testimonial-avatar {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: var(--surface-el);
-      border: 2px solid var(--border-hi);
-      flex-shrink: 0;
+    .tcard-text {
+      font-size: 0.9rem; color: var(--text-soft); line-height: 1.8;
+      margin-bottom: 1.25rem; font-style: italic;
     }
 
-    .testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .tcard-author { display: flex; align-items: center; gap: 0.85rem; }
 
-    .testimonial-name { font-size: 0.9rem; font-weight: 600; color: var(--text); }
-    .testimonial-role { font-size: 0.78rem; color: var(--text-muted); }
+    .tcard-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      overflow: hidden; background: var(--surface-hi);
+      border: 2px solid var(--border); flex-shrink: 0;
+    }
+
+    .tcard-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .tcard-name { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+    .tcard-role { font-size: 0.775rem; color: var(--text-muted); }
 
     /* ── CTA ── */
     #cta {
       background: var(--surface-el);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      padding: 8rem 1.5rem;
+      text-align: center; position: relative; overflow: hidden;
+      padding: 8rem 2rem;
     }
 
     #cta::before {
       content: '';
       position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 70% 80% at 50% 50%, rgba(14,159,110,0.16) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 40% at 10% 20%, rgba(6,95,70,0.1) 0%, transparent 55%);
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(79,110,247,0.12) 0%, transparent 65%);
       pointer-events: none;
     }
 
-    .cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+    .cta-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
 
     .cta-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1.25rem; }
 
-    .cta-sub { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 2.75rem; line-height: 1.75; }
+    .cta-sub { font-size: 1.125rem; color: var(--text-soft); margin-bottom: 2.5rem; line-height: 1.8; }
 
-    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-    .cta-note { margin-top: 1.5rem; font-size: 0.82rem; color: var(--text-muted); }
+    .cta-note { margin-top: 1.25rem; font-size: 0.82rem; color: var(--text-muted); }
 
     /* ── Contact ── */
     #contact { background: var(--surface); }
 
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
+    .contact-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
     }
 
-    @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; gap: 3rem; } }
+    @media (max-width: 860px) { .contact-inner { grid-template-columns: 1fr; gap: 3rem; } }
 
-    .contact-form {
+    .contact-form-box {
       background: var(--surface-fl);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 2.5rem;
-      box-shadow:
-        0 4px 16px rgba(0,0,0,0.3),
-        0 16px 48px rgba(0,0,0,0.2);
+      border-radius: 20px; padding: 2.5rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
     }
 
-    .contact-form-title {
+    .form-title {
       font-family: 'Syne', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.03em;
-      margin-bottom: 0.25rem;
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--text); letter-spacing: -0.03em; margin-bottom: 0.3rem;
     }
 
-    .contact-form-sub { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 2rem; }
+    .form-sub { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 2rem; }
 
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-    @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
 
     .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
 
     .form-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+      font-size: 0.73rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
     }
 
     .form-input {
-      background: var(--surface-el);
+      background: var(--surface-hi);
       border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 0.75rem 1rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      color: var(--text);
-      outline: none;
+      border-radius: 9px; padding: 0.75rem 1rem;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text);
+      outline: none; width: 100%; -webkit-appearance: none;
       transition: border-color 180ms ease, box-shadow 180ms ease;
-      width: 100%;
-      -webkit-appearance: none;
     }
 
-    .form-input::placeholder { color: rgba(122,145,137,0.5); }
-    .form-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(14,159,110,0.15); }
-    .form-input option { background: var(--surface-el); color: var(--text); }
+    .form-input::placeholder { color: rgba(107,122,153,0.6); }
+    .form-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(79,110,247,0.15); }
+    .form-input option { background: var(--surface-hi); color: var(--text); }
     textarea.form-input { resize: vertical; min-height: 110px; }
 
-    .form-submit {
-      width: 100%;
-      margin-top: 1.25rem;
-    }
+    .form-btn { width: 100%; margin-top: 1.25rem; justify-content: center; }
 
-    .contact-info { display: flex; flex-direction: column; gap: 0; padding-top: 0.5rem; }
+    /* contact info side */
+    .contact-feats { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
 
-    .contact-highlight {
-      background: var(--surface-fl);
-      border: 1px solid var(--border-hi);
-      border-radius: 16px;
-      padding: 1.75rem;
-      margin-bottom: 2rem;
-      display: flex;
-      gap: 1.25rem;
-      align-items: flex-start;
-    }
+    .cfeat { display: flex; gap: 1.1rem; align-items: flex-start; }
 
-    .contact-highlight-icon {
-      width: 48px; height: 48px;
-      background: rgba(14,159,110,0.1);
-      border: 1px solid var(--border-hi);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
-
-    .contact-highlight-title { font-weight: 600; color: var(--text); font-size: 1rem; margin-bottom: 0.2rem; }
-    .contact-highlight-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
-
-    .contact-features { display: flex; flex-direction: column; gap: 1.25rem; }
-
-    .contact-feat { display: flex; gap: 1rem; align-items: flex-start; }
-
-    .contact-feat-icon {
-      width: 38px; height: 38px;
-      background: rgba(14,159,110,0.08);
+    .cfeat-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: rgba(79,110,247,0.08);
       border: 1px solid var(--border);
-      border-radius: 9px;
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; flex-shrink: 0;
+      font-size: 1.1rem;
     }
 
-    .contact-feat-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem; }
-    .contact-feat-desc { font-size: 0.835rem; color: var(--text-muted); line-height: 1.6; }
+    .cfeat-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+    .cfeat-desc { font-size: 0.845rem; color: var(--text-muted); line-height: 1.65; }
 
     /* ── Footer ── */
     footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 3rem 1.5rem;
+      background: var(--surface); border-top: 1px solid var(--border); padding: 3rem 2rem;
     }
 
     .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.5rem;
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
     }
 
     .footer-brand {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--text);
-      display: flex; align-items: center; gap: 0.5rem;
+      font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800;
+      color: var(--text); display: flex; align-items: center; gap: 0.5rem;
     }
 
-    .footer-copy { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.35rem; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; }
 
     .footer-links { display: flex; gap: 1.75rem; list-style: none; }
 
     .footer-links a {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-decoration: none;
+      font-size: 0.85rem; color: var(--text-muted); text-decoration: none;
       transition: color 180ms ease;
     }
 
-    .footer-links a:hover { color: var(--brand-light); }
-    .footer-links a:focus-visible { outline: 2px solid var(--brand-light); outline-offset: 2px; border-radius: 2px; }
-
-    .footer-social { display: flex; gap: 0.75rem; }
+    .footer-links a:hover { color: var(--text); }
 
     .footer-social a {
-      width: 36px; height: 36px;
-      background: rgba(14,159,110,0.08);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-muted);
-      text-decoration: none;
+      width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+      background: var(--surface-fl); border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text-muted); text-decoration: none;
       transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
     }
 
-    .footer-social a:hover { background: rgba(14,159,110,0.18); color: var(--brand-light); border-color: var(--border-hi); }
+    .footer-social a:hover { background: rgba(79,110,247,0.15); color: var(--brand-light); border-color: var(--border-hi); }
 
     /* ── Toast ── */
     #toast {
-      position: fixed;
-      bottom: 2rem; right: 2rem;
-      background: var(--surface-fl);
-      border: 1px solid var(--border-hi);
-      border-radius: 16px;
-      padding: 1.25rem 1.5rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
-      z-index: 9998;
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--surface-fl); border: 1px solid var(--border-hi);
+      border-radius: 14px; padding: 1.1rem 1.4rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      z-index: 9998; max-width: 310px;
       transform: translateY(130%);
-      transition: transform 400ms cubic-bezier(0.34,1.56,0.64,1);
-      max-width: 320px;
+      transition: transform 380ms cubic-bezier(0.34,1.56,0.64,1);
     }
 
     #toast.show { transform: translateY(0); }
-    .toast-icon { font-size: 1.4rem; flex-shrink: 0; }
-    .toast-title { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 0.2rem; }
-    .toast-sub { font-size: 0.8rem; color: var(--text-muted); }
-
-    /* ── Reveal animation ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 600ms ease, transform 600ms cubic-bezier(0.34,1.56,0.64,1);
-    }
-
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Mobile nav ── */
-    @media (max-width: 640px) {
-      nav { padding: 1rem 1.25rem; }
-      .nav-links { display: none; }
-    }
-
-    /* Live indicator pulse */
-    .live-dot {
-      display: inline-block;
-      width: 8px; height: 8px;
-      background: var(--brand-light);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--brand-light);
-      animation: pulse 2s ease-in-out infinite;
-      vertical-align: middle;
-      margin-right: 0.3rem;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.75); }
-    }
+    .toast-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .toast-title { font-weight: 600; font-size: 0.9rem; color: var(--text); margin-bottom: 0.15rem; }
+    .toast-sub { font-size: 0.78rem; color: var(--text-muted); }
   </style>
 </head>
 <body>
@@ -1056,21 +767,21 @@
     <div class="toast-icon">✅</div>
     <div>
       <div class="toast-title">Message Sent!</div>
-      <div class="toast-sub">We'll reach out within a few hours.</div>
+      <div class="toast-sub">We'll get back to you within a few hours.</div>
     </div>
   </div>
 
   <!-- Nav -->
   <nav aria-label="Main navigation">
-    <a href="#" class="nav-logo">
-      <div class="nav-logo-mark">
+    <a href="#" class="logo">
+      <div class="logo-mark">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       </div>
       Nvex Media
     </a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
-      <li><a href="#how">How It Works</a></li>
+      <li><a href="#how">Process</a></li>
       <li><a href="#results">Results</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="#contact" class="nav-cta">Get Started</a></li>
@@ -1079,65 +790,62 @@
 
   <!-- ── Hero ── -->
   <section id="hero">
-    <div class="hero-grid">
-      <!-- Left copy -->
+    <div class="hero-inner">
+      <!-- Copy -->
       <div>
-        <div class="hero-eyebrow">
-          <span class="tag">
-            <span class="tag-dot"></span>
-            Lead Acquisition · AI Receptionist
-          </span>
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>Lead Acquisition · AI Receptionist
         </div>
         <h1 class="hero-title">
           More Leads.<br>
-          <span class="accent">Never Miss</span><br>
+          <span class="hi">Never Miss</span><br>
           a Call.
         </h1>
         <p class="hero-body">
           Nvex Media captures leads online and handles every inbound call — 24 hours a day, 7 days a week — so your business keeps growing while you sleep.
         </p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn-primary">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <div class="hero-btns">
+          <a href="#contact" class="btn btn-primary">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             Book a Free Call
           </a>
-          <a href="#services" class="btn-ghost">See How It Works</a>
+          <a href="#services" class="btn btn-outline">See How It Works</a>
         </div>
-        <div class="hero-trust">
-          <div class="hero-trust-avatars">
-            <div class="hero-trust-avatar"><img src="https://placehold.co/30x30/0D1410/34D399?text=A" alt="" /></div>
-            <div class="hero-trust-avatar"><img src="https://placehold.co/30x30/0D1410/0E9F6E?text=B" alt="" /></div>
-            <div class="hero-trust-avatar"><img src="https://placehold.co/30x30/0D1410/065F46?text=C" alt="" /></div>
+        <div class="hero-proof">
+          <div>
+            <span class="hero-stat-num">100%</span>
+            <div class="hero-stat-label">Call answer rate</div>
           </div>
-          <span>Trusted by local businesses across multiple industries</span>
+          <div>
+            <span class="hero-stat-num">3×</span>
+            <div class="hero-stat-label">More leads captured</div>
+          </div>
+          <div>
+            <span class="hero-stat-num">&lt;5d</span>
+            <div class="hero-stat-label">Live from sign-up</div>
+          </div>
         </div>
       </div>
 
-      <!-- Right visual -->
+      <!-- Visual -->
       <div class="hero-visual">
-        <div class="hero-stat-card hsc-top">
-          <div class="hsc-icon">📞</div>
-          <div>
-            <div class="hsc-num">24/7</div>
-            <div class="hsc-label">AI Receptionist Active</div>
-          </div>
-        </div>
-
-        <div class="hero-card-main">
-          <div class="hero-img-wrap">
-            <img src="images/hero-dashboard.jpg" alt="AI receptionist dashboard" />
-          </div>
-          <div class="hero-card-body">
-            <div class="hero-card-label"><span class="live-dot"></span>Live — Answering calls now</div>
-            <div class="hero-card-title">Your AI receptionist never sleeps, never misses a lead.</div>
-          </div>
-        </div>
-
-        <div class="hero-stat-card hero-stat-card-2 hsc-bot">
-          <div class="hsc-icon">📈</div>
-          <div>
-            <div class="hsc-num">3×</div>
-            <div class="hsc-label">More Leads Captured</div>
+        <div class="hero-phone-card">
+          <img class="hero-img" src="images/hero-dashboard.jpg" alt="AI receptionist dashboard" />
+          <div class="hero-card-info">
+            <div class="hero-card-status">
+              <span class="live-dot"></span> Live — answering calls now
+            </div>
+            <div class="hero-card-headline">Your AI receptionist never sleeps, never misses a lead.</div>
+            <div class="hero-metrics">
+              <div class="hero-metric">
+                <span class="hero-metric-val">24/7</span>
+                <div class="hero-metric-label">Always on</div>
+              </div>
+              <div class="hero-metric">
+                <span class="hero-metric-val">0</span>
+                <div class="hero-metric-label">Missed calls</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1147,93 +855,89 @@
   <!-- Ticker -->
   <div class="ticker-wrap" aria-hidden="true">
     <div class="ticker-track">
-      <span class="ticker-item"><span class="ticker-sep"></span>Lead Generation Funnels</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>24/7 AI Receptionist</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>Call Answering & Qualification</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>Appointment Booking</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>Online Media Presence</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>Social Media Management</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>Landing Pages</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>CRM Integration</span>
-      <!-- duplicate for seamless loop -->
-      <span class="ticker-item"><span class="ticker-sep"></span>Lead Generation Funnels</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>24/7 AI Receptionist</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>Call Answering & Qualification</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>Appointment Booking</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>Online Media Presence</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>Social Media Management</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>Landing Pages</span>
-      <span class="ticker-item"><span class="ticker-sep"></span>CRM Integration</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Lead Generation Funnels</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>24/7 AI Receptionist</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Call Answering & Qualification</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Appointment Booking</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Online Media Presence</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Social Media Management</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>CRM Integration</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Landing Pages</span>
+      <!-- duplicate -->
+      <span class="ticker-item"><span class="ticker-dot"></span>Lead Generation Funnels</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>24/7 AI Receptionist</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Call Answering & Qualification</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Appointment Booking</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Online Media Presence</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Social Media Management</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>CRM Integration</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Landing Pages</span>
     </div>
   </div>
 
-  <!-- ── Problem → Solution ── -->
+  <!-- ── Problem ── -->
   <section id="problem">
-    <div class="container">
-      <div class="ps-grid">
-        <div class="ps-img-wrap reveal">
-          <img src="images/problem-missed-calls.jpg" alt="Business owner missing calls" />
-          <div class="ps-badge">
-            <div class="ps-badge-icon">💸</div>
-            <div class="ps-badge-text">
-              <strong>$50k+ lost per year</strong>
-              <span>from missed calls alone</span>
+    <div class="problem-grid">
+      <div class="problem-img-wrap">
+        <img src="images/problem-missed-calls.jpg" alt="Business owner missing calls" />
+        <div class="problem-badge">
+          <div class="problem-badge-icon">💸</div>
+          <div>
+            <strong>$50k+ lost per year</strong>
+            <span>from missed calls alone</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="eyebrow"><span class="eyebrow-dot"></span>The Problem</div>
+        <h2 class="section-title">Your phone stops ringing. Your competitors pick up.</h2>
+        <p class="section-sub">Most businesses lose 40–60% of potential revenue simply because no one answered. Voicemail is dead — customers call the next listing.</p>
+
+        <div class="pain-cards">
+          <div class="pain-card">
+            <div class="pain-card-icon">📵</div>
+            <div>
+              <div class="pain-card-title">Calls going to voicemail</div>
+              <div class="pain-card-desc">62% of callers won't leave a message. They hang up and call your competitor.</div>
+            </div>
+          </div>
+          <div class="pain-card">
+            <div class="pain-card-icon">🕳️</div>
+            <div>
+              <div class="pain-card-title">No online lead funnel</div>
+              <div class="pain-card-desc">Traffic hits your website and bounces. No capture, no follow-up, no sale.</div>
+            </div>
+          </div>
+          <div class="pain-card">
+            <div class="pain-card-icon">😴</div>
+            <div>
+              <div class="pain-card-title">After-hours enquiries ignored</div>
+              <div class="pain-card-desc">Your best prospects research at 9pm. Without coverage, they're gone by morning.</div>
             </div>
           </div>
         </div>
 
-        <div class="reveal" style="transition-delay: 0.12s;">
-          <span class="tag"><span class="tag-dot"></span>The Problem</span>
-          <h2 class="section-title">Your phone stops ringing. Your competitors pick up.</h2>
-          <p class="section-sub" style="margin-bottom: 1.75rem;">Most small businesses lose 40–60% of potential revenue simply because no one answered. Voicemail is dead. Customers call the next business on the list.</p>
-
-          <ul class="pain-list">
-            <li class="pain-item">
-              <div class="pain-icon">📵</div>
-              <div>
-                <div class="pain-title">Calls going to voicemail</div>
-                <div class="pain-desc">62% of callers won't leave a voicemail. They hang up and call your competitor.</div>
-              </div>
-            </li>
-            <li class="pain-item">
-              <div class="pain-icon">🕳️</div>
-              <div>
-                <div class="pain-title">No online lead funnel</div>
-                <div class="pain-desc">Traffic hits your website and bounces. No capture form, no follow-up, no sale.</div>
-              </div>
-            </li>
-            <li class="pain-item">
-              <div class="pain-icon">😴</div>
-              <div>
-                <div class="pain-title">After-hours enquiries ignored</div>
-                <div class="pain-desc">Your best prospects research and call at 9pm. Without coverage, they're gone by morning.</div>
-              </div>
-            </li>
-          </ul>
-
-          <a href="#services" class="btn-primary" style="margin-top: 0.5rem;">See the Solution →</a>
-        </div>
+        <a href="#services" class="btn btn-primary">See the Solution →</a>
       </div>
     </div>
   </section>
 
   <!-- ── Services ── -->
   <section id="services">
-    <div class="container" style="position: relative; z-index: 1;">
-      <div class="services-header reveal">
-        <span class="tag"><span class="tag-dot"></span>What We Do</span>
-        <h2 class="section-title">Two systems. One result — more revenue.</h2>
-        <p class="section-sub" style="margin: 0 auto;">We build the machine that captures leads online, then make sure every single call gets answered and converted.</p>
+    <div class="services-inner">
+      <div class="services-header">
+        <div class="eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span>What We Do</div>
+        <h2 class="section-title" style="text-align:center;">Two systems. One result — more revenue.</h2>
+        <p class="section-sub" style="margin:0 auto; text-align:center;">We build the machine that captures leads online, then make sure every call gets answered and converted.</p>
       </div>
 
       <div class="services-grid">
-
-        <!-- Online Presence & Lead Acquisition -->
-        <div class="feat-card reveal">
-          <div class="feat-icon">🎯</div>
-          <div class="feat-name">Lead Acquisition & Online Presence</div>
-          <p class="feat-desc">We build and manage your full digital footprint — from landing pages to social media — designed to attract and capture high-intent leads every day.</p>
-          <ul class="feat-list">
+        <div class="svc-card">
+          <div class="svc-icon">🎯</div>
+          <div class="svc-name">Lead Acquisition & Online Presence</div>
+          <p class="svc-desc">Full digital presence — landing pages to social media — built to attract and capture high-intent leads every day.</p>
+          <ul class="svc-list">
             <li>High-converting landing pages & websites</li>
             <li>Social media content & management</li>
             <li>Paid ad campaigns (Meta, Google, TikTok)</li>
@@ -1242,89 +946,83 @@
           </ul>
         </div>
 
-        <!-- AI Receptionist -->
-        <div class="feat-card reveal" style="transition-delay: 0.1s;">
-          <div class="feat-icon">🤖</div>
-          <div class="feat-name">24/7 AI Receptionist</div>
-          <p class="feat-desc">Your AI receptionist answers every call, qualifies every enquiry, and books appointments — sounding natural and professional around the clock.</p>
-          <ul class="feat-list">
+        <div class="svc-card">
+          <div class="svc-icon">🤖</div>
+          <div class="svc-name">24/7 AI Receptionist</div>
+          <p class="svc-desc">Your AI receptionist answers every call, qualifies enquiries, and books appointments — sounding natural around the clock.</p>
+          <ul class="svc-list">
             <li>Answers calls 24 hours, 7 days a week</li>
             <li>Qualifies leads & handles FAQs instantly</li>
-            <li>Books appointments directly into your calendar</li>
+            <li>Books directly into your calendar</li>
             <li>Warm-transfers urgent calls to you</li>
-            <li>Sends SMS follow-ups automatically</li>
+            <li>Automatic SMS follow-ups</li>
           </ul>
         </div>
 
-        <!-- Wide feature card -->
-        <div class="feat-card feat-card-wide reveal" style="transition-delay: 0.15s;">
-          <div class="feat-img">
-            <img src="images/system-wide.jpg" alt="Nvex Media full system overview" />
+        <div class="svc-card svc-card-wide">
+          <div class="svc-img">
+            <img src="images/system-wide.jpg" alt="Full growth system dashboard" />
           </div>
           <div>
-            <div class="feat-icon">⚙️</div>
-            <div class="feat-name">The Full Growth System</div>
-            <p class="feat-desc">We connect both services into one seamless pipeline — so the leads your marketing captures are instantly handled by your AI receptionist. Nothing falls through the cracks.</p>
-            <ul class="feat-list" style="margin-top: 1rem;">
+            <div class="svc-icon">⚙️</div>
+            <div class="svc-name">The Full Growth System</div>
+            <p class="svc-desc">Both services connected into one seamless pipeline — leads your marketing captures are instantly handled by your AI receptionist. Nothing falls through the cracks.</p>
+            <ul class="svc-list" style="margin-top:1rem;">
               <li>Lead capture → instant AI follow-up</li>
               <li>Missed calls trigger automatic SMS callbacks</li>
-              <li>All leads tracked in a single dashboard</li>
+              <li>All leads tracked in one dashboard</li>
               <li>Weekly performance summaries delivered to you</li>
             </ul>
-            <a href="#contact" class="btn-primary" style="margin-top: 1.75rem; display: inline-flex;">
-              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <a href="#contact" class="btn btn-primary" style="margin-top:1.75rem;">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               Start the Conversation
             </a>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- ── How It Works ── -->
   <section id="how">
-    <div class="container">
-      <div class="how-grid">
-        <div>
-          <span class="tag reveal"><span class="tag-dot"></span>How It Works</span>
-          <h2 class="section-title reveal" style="transition-delay: 0.05s;">Up and running in under a week.</h2>
-          <p class="section-sub reveal" style="transition-delay: 0.1s; margin-bottom: 2.5rem;">We handle the entire setup so you can focus on running your business.</p>
+    <div class="how-inner">
+      <div class="how-img-wrap">
+        <img src="images/how-setup.jpg" alt="Setup process" />
+      </div>
+      <div>
+        <div class="eyebrow"><span class="eyebrow-dot"></span>How It Works</div>
+        <h2 class="section-title">Up and running in under a week.</h2>
+        <p class="section-sub" style="margin-bottom: 0.5rem;">We handle the entire setup so you can focus on running your business.</p>
 
-          <div class="steps">
-            <div class="step reveal" style="transition-delay: 0.12s;">
-              <div class="step-num-wrap"><div class="step-num">1</div></div>
-              <div>
-                <div class="step-title">Discovery Call (30 min)</div>
-                <div class="step-desc">We learn your business, your goals, and the calls you're currently missing. No jargon, no pressure.</div>
-              </div>
-            </div>
-            <div class="step reveal" style="transition-delay: 0.17s;">
-              <div class="step-num-wrap"><div class="step-num">2</div></div>
-              <div>
-                <div class="step-title">We Build Your System</div>
-                <div class="step-desc">Custom AI receptionist trained on your business, landing page live, social media accounts set up and ready.</div>
-              </div>
-            </div>
-            <div class="step reveal" style="transition-delay: 0.22s;">
-              <div class="step-num-wrap"><div class="step-num">3</div></div>
-              <div>
-                <div class="step-title">Go Live & Start Capturing</div>
-                <div class="step-desc">Your AI receptionist goes live and leads start flowing in. You get notified of every qualified lead instantly.</div>
-              </div>
-            </div>
-            <div class="step reveal" style="transition-delay: 0.27s;">
-              <div class="step-num-wrap"><div class="step-num">4</div></div>
-              <div>
-                <div class="step-title">Grow & Optimise Monthly</div>
-                <div class="step-desc">We review the numbers with you every month and continuously improve to maximise your ROI.</div>
-              </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-title">Discovery Call (30 min)</div>
+              <div class="step-desc">We learn your business, goals, and the calls you're currently missing. No jargon, no pressure.</div>
             </div>
           </div>
-        </div>
-
-        <div class="how-visual reveal" style="transition-delay: 0.1s;">
-          <img src="images/how-setup.jpg" alt="Setup process illustration" />
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-title">We Build Your System</div>
+              <div class="step-desc">Custom AI receptionist trained on your business, landing page live, social accounts set up and ready.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-title">Go Live & Start Capturing</div>
+              <div class="step-desc">Your AI receptionist goes live and leads start flowing. You get notified of every qualified lead instantly.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div>
+              <div class="step-title">Grow & Optimise Monthly</div>
+              <div class="step-desc">We review numbers together every month and continuously improve to maximise your ROI.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1332,63 +1030,61 @@
 
   <!-- ── Results ── -->
   <section id="results">
-    <div class="container">
-      <div class="results-header reveal">
-        <span class="tag"><span class="tag-dot"></span>Results</span>
-        <h2 class="section-title">Numbers that speak for themselves.</h2>
-        <p class="section-sub">Our clients stop losing leads and start converting enquiries into booked jobs — within the first month.</p>
+    <div class="results-inner">
+      <div class="eyebrow"><span class="eyebrow-dot"></span>Results</div>
+      <h2 class="section-title">Numbers that speak for themselves.</h2>
+      <p class="section-sub">Our clients stop losing leads and start converting enquiries into booked jobs — within the first month.</p>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <span class="stat-num">100%</span>
+          <div class="stat-label">Call answer rate — every call, every time</div>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">3×</span>
+          <div class="stat-label">Average increase in captured leads</div>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">24/7</span>
+          <div class="stat-label">Always-on — weekends and holidays too</div>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">&lt;5d</span>
+          <div class="stat-label">Average time from sign-up to live</div>
+        </div>
       </div>
 
-      <div class="results-grid">
-        <div class="result-card reveal">
-          <div class="result-num">100%</div>
-          <div class="result-label">Call answer rate — every call, every time</div>
-        </div>
-        <div class="result-card reveal" style="transition-delay: 0.07s;">
-          <div class="result-num">3×</div>
-          <div class="result-label">Average increase in captured leads</div>
-        </div>
-        <div class="result-card reveal" style="transition-delay: 0.14s;">
-          <div class="result-num">24/7</div>
-          <div class="result-label">Always-on — even weekends and holidays</div>
-        </div>
-        <div class="result-card reveal" style="transition-delay: 0.21s;">
-          <div class="result-num">&lt;5d</div>
-          <div class="result-label">Average time from sign-up to live</div>
-        </div>
-      </div>
-
-      <div class="testimonials-grid">
-        <div class="testimonial-card reveal">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"We were losing calls every weekend. Within two weeks of going live, we booked 11 new jobs that would have gone straight to voicemail."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar"><img src="https://placehold.co/40x40/0D1410/34D399?text=JM" alt="James M." /></div>
+      <div class="testimonials">
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <p class="tcard-text">"We were losing calls every weekend. Within two weeks of going live, we booked 11 new jobs that would have gone straight to voicemail."</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar"><img src="https://placehold.co/38x38/131824/4F6EF7?text=JM" alt="" /></div>
             <div>
-              <div class="testimonial-name">James M.</div>
-              <div class="testimonial-role">Owner, local plumbing company</div>
+              <div class="tcard-name">James M.</div>
+              <div class="tcard-role">Owner, plumbing company</div>
             </div>
           </div>
         </div>
-        <div class="testimonial-card reveal" style="transition-delay: 0.08s;">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Our social media went from zero engagement to consistent enquiries. The AI handles all the calls and our receptionist just focuses on the clients in front of her."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar"><img src="https://placehold.co/40x40/0D1410/0E9F6E?text=SR" alt="Sarah R." /></div>
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <p class="tcard-text">"Our social media went from zero to consistent enquiries. The AI handles all the calls and my team just focuses on the clients in front of them."</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar"><img src="https://placehold.co/38x38/131824/7B96FF?text=SR" alt="" /></div>
             <div>
-              <div class="testimonial-name">Sarah R.</div>
-              <div class="testimonial-role">Director, beauty clinic</div>
+              <div class="tcard-name">Sarah R.</div>
+              <div class="tcard-role">Director, beauty clinic</div>
             </div>
           </div>
         </div>
-        <div class="testimonial-card reveal" style="transition-delay: 0.16s;">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"The ROI was clear after 30 days. Every lead gets followed up, nothing slips through, and I actually know where my enquiries are coming from now."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar"><img src="https://placehold.co/40x40/0D1410/065F46?text=DK" alt="Daniel K." /></div>
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <p class="tcard-text">"The ROI was clear after 30 days. Every lead gets followed up, nothing slips through, and I actually know where my enquiries come from."</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar"><img src="https://placehold.co/38x38/131824/2A46C8?text=DK" alt="" /></div>
             <div>
-              <div class="testimonial-name">Daniel K.</div>
-              <div class="testimonial-role">MD, roofing & construction</div>
+              <div class="tcard-name">Daniel K.</div>
+              <div class="tcard-role">MD, roofing & construction</div>
             </div>
           </div>
         </div>
@@ -1398,16 +1094,16 @@
 
   <!-- ── CTA ── -->
   <section id="cta">
-    <div class="cta-inner reveal">
-      <span class="tag" style="margin-bottom: 1.5rem;"><span class="tag-dot"></span>Ready When You Are</span>
-      <h2 class="cta-title">Stop losing leads.<br><span style="color: var(--brand-light);">Start winning more business.</span></h2>
-      <p class="cta-sub">Book a free 30-minute call. We'll show you exactly how many leads you're currently missing and what it's costing you.</p>
-      <div class="cta-actions">
-        <a href="#contact" class="btn-primary" style="font-size: 1rem; padding: 1rem 2.25rem;">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="cta-inner">
+      <div class="eyebrow" style="justify-content:center; margin-bottom:1.5rem;"><span class="eyebrow-dot"></span>Ready When You Are</div>
+      <h2 class="cta-title">Stop losing leads.<br><span style="color:var(--brand-light);">Start winning more business.</span></h2>
+      <p class="cta-sub">Book a free 30-minute call. We'll show you exactly how many leads you're missing and what it's costing you.</p>
+      <div class="cta-btns">
+        <a href="#contact" class="btn btn-primary" style="font-size:1rem; padding:1rem 2.25rem;">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           Book a Free Call
         </a>
-        <a href="#services" class="btn-ghost" style="font-size: 1rem; padding: 1rem 2.25rem;">View Services</a>
+        <a href="#services" class="btn btn-outline" style="font-size:1rem; padding:1rem 2.25rem;">View Services</a>
       </div>
       <p class="cta-note">No commitment. No hard sell. Just clarity.</p>
     </div>
@@ -1415,98 +1111,86 @@
 
   <!-- ── Contact ── -->
   <section id="contact">
-    <div class="container">
-      <div class="contact-grid">
-        <!-- Info side -->
-        <div class="contact-info reveal">
-          <span class="tag" style="margin-bottom: 1.25rem;"><span class="tag-dot"></span>Get In Touch</span>
-          <h2 class="section-title">Let's talk about your business.</h2>
-          <p class="section-sub" style="margin-bottom: 2rem;">Fill in the form or find us on Facebook. We'll come back with a clear plan — no fluff, no pushy sales.</p>
+    <div class="contact-inner">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-dot"></span>Get In Touch</div>
+        <h2 class="section-title">Let's talk about your business.</h2>
+        <p class="section-sub">Fill in the form or find us on Facebook. We'll come back with a clear plan — no fluff, no pushy sales.</p>
 
-          <div class="contact-highlight">
-            <div class="contact-highlight-icon">⚡</div>
+        <div class="contact-feats">
+          <div class="cfeat">
+            <div class="cfeat-icon">⚡</div>
             <div>
-              <div class="contact-highlight-title">Fast Response Guaranteed</div>
-              <div class="contact-highlight-desc">We respond to every enquiry within a few hours during business hours. For something urgent, message us directly on Facebook.</div>
+              <div class="cfeat-title">Fast Response Guaranteed</div>
+              <div class="cfeat-desc">We respond to every enquiry within a few hours during business hours.</div>
             </div>
           </div>
-
-          <div class="contact-features">
-            <div class="contact-feat">
-              <div class="contact-feat-icon">🆓</div>
-              <div>
-                <div class="contact-feat-title">Free Discovery Call</div>
-                <div class="contact-feat-desc">30 minutes, zero obligation. We'll audit your current setup and show you where you're losing leads.</div>
-              </div>
+          <div class="cfeat">
+            <div class="cfeat-icon">🆓</div>
+            <div>
+              <div class="cfeat-title">Free Discovery Call</div>
+              <div class="cfeat-desc">30 minutes, zero obligation. We'll audit your setup and show where you're losing leads.</div>
             </div>
-            <div class="contact-feat">
-              <div class="contact-feat-icon">🎯</div>
-              <div>
-                <div class="contact-feat-title">Custom Plan for Your Business</div>
-                <div class="contact-feat-desc">No templates. Every system we build is tailored to your industry, your goals, and your budget.</div>
-              </div>
+          </div>
+          <div class="cfeat">
+            <div class="cfeat-icon">🎯</div>
+            <div>
+              <div class="cfeat-title">Custom Plan for Your Business</div>
+              <div class="cfeat-desc">No templates — every system is tailored to your industry, goals, and budget.</div>
             </div>
-            <div class="contact-feat">
-              <div class="contact-feat-icon">📘</div>
-              <div>
-                <div class="contact-feat-title">Find Us on Facebook</div>
-                <div class="contact-feat-desc">Follow Nvex Media on Facebook and send us a DM — we're active there daily.</div>
-              </div>
+          </div>
+          <div class="cfeat">
+            <div class="cfeat-icon">📘</div>
+            <div>
+              <div class="cfeat-title">Find Us on Facebook</div>
+              <div class="cfeat-desc">Follow Nvex Media on Facebook and send us a DM — we're active there daily.</div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Form side -->
-        <div class="reveal" style="transition-delay: 0.12s;">
-          <div class="contact-form">
-            <div class="contact-form-title">Start Your Project</div>
-            <div class="contact-form-sub">Tell us a bit about your business and what you need.</div>
+      <div class="contact-form-box">
+        <div class="form-title">Start Your Project</div>
+        <div class="form-sub">Tell us about your business and what you need.</div>
 
-            <form id="contactForm" novalidate>
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label" for="fname">First Name</label>
-                  <input class="form-input" type="text" id="fname" name="fname" placeholder="John" required />
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="lname">Last Name</label>
-                  <input class="form-input" type="text" id="lname" name="lname" placeholder="Smith" required />
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="email">Email Address</label>
-                <input class="form-input" type="email" id="email" name="email" placeholder="john@yourbusiness.com" required />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="phone">Phone Number</label>
-                <input class="form-input" type="tel" id="phone" name="phone" placeholder="+1 000 000 0000" />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="service">What Do You Need?</label>
-                <select class="form-input" id="service" name="service">
-                  <option value="">Select an option…</option>
-                  <option>AI Receptionist (24/7 Call Handling)</option>
-                  <option>Lead Acquisition & Online Presence</option>
-                  <option>Both — Full Growth System</option>
-                  <option>Not Sure — Need Advice</option>
-                </select>
-              </div>
-
-              <div class="form-group" style="margin-bottom: 0;">
-                <label class="form-label" for="message">Tell Us About Your Business</label>
-                <textarea class="form-input" id="message" name="message" placeholder="What do you do, how many calls/enquiries do you currently get, and what's your biggest challenge?"></textarea>
-              </div>
-
-              <button type="submit" class="btn-primary form-submit">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                Send Message
-              </button>
-            </form>
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fname">First Name</label>
+              <input class="form-input" type="text" id="fname" name="fname" placeholder="John" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lname">Last Name</label>
+              <input class="form-input" type="text" id="lname" name="lname" placeholder="Smith" required />
+            </div>
           </div>
-        </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="john@yourbusiness.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone Number</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="+1 000 000 0000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="service">What Do You Need?</label>
+            <select class="form-input" id="service" name="service">
+              <option value="">Select an option…</option>
+              <option>AI Receptionist (24/7 Call Handling)</option>
+              <option>Lead Acquisition & Online Presence</option>
+              <option>Both — Full Growth System</option>
+              <option>Not Sure — Need Advice</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label" for="message">Tell Us About Your Business</label>
+            <textarea class="form-input" id="message" name="message" placeholder="What do you do, how many calls/enquiries do you get, and what's your biggest challenge?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary form-btn">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Send Message
+          </button>
+        </form>
       </div>
     </div>
   </section>
@@ -1516,7 +1200,7 @@
     <div class="footer-inner">
       <div>
         <div class="footer-brand">
-          <div class="nav-logo-mark" style="width:22px;height:22px;border-radius:6px;">
+          <div class="logo-mark" style="width:22px;height:22px;border-radius:6px;">
             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
           Nvex Media
@@ -1525,12 +1209,12 @@
       </div>
       <ul class="footer-links">
         <li><a href="#services">Services</a></li>
-        <li><a href="#how">How It Works</a></li>
+        <li><a href="#how">Process</a></li>
         <li><a href="#results">Results</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <div class="footer-social">
-        <a href="https://www.facebook.com/profile.php?id=61579429209898" target="_blank" rel="noopener" aria-label="Nvex Media on Facebook">
+      <div class="footer-social" style="display:flex;gap:0.75rem;">
+        <a href="https://www.facebook.com/profile.php?id=61579429209898" target="_blank" rel="noopener" aria-label="Facebook">
           <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
         </a>
       </div>
@@ -1538,14 +1222,6 @@
   </footer>
 
   <script>
-    // Scroll reveal
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // Contact form
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const toast = document.getElementById('toast');
