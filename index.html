@@ -1833,8 +1833,18 @@
           this.reset();
         })
         .catch((err) => {
-          alert('Something went wrong. Please try again or message us on Facebook.');
           console.error('EmailJS error:', err);
+          const toast = document.getElementById('toast');
+          toast.querySelector('.toast-icon').textContent = '⚠️';
+          toast.querySelector('.toast-title').textContent = 'Something went wrong.';
+          toast.querySelector('.toast-sub').textContent = 'Please try again or find us on Facebook.';
+          toast.classList.add('show');
+          setTimeout(() => {
+            toast.classList.remove('show');
+            toast.querySelector('.toast-icon').textContent = '✅';
+            toast.querySelector('.toast-title').textContent = 'Message Sent!';
+            toast.querySelector('.toast-sub').textContent = 'We\'ll get back to you within a few hours.';
+          }, 5000);
         })
         .finally(() => {
           btn.disabled = false;
