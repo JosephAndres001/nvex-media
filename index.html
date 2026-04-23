@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.48/build/spline-viewer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init("R6uQ9IggB75MchP-C");</script>
   <style>
     :root {
       --brand:       #4F6EF7;
@@ -1808,13 +1810,36 @@
   </script>
 
   <script>
-    // Contact form toast
+    // Contact form — EmailJS
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const toast = document.getElementById('toast');
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 5000);
-      this.reset();
+      const btn = this.querySelector('.form-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      const params = {
+        from_name:  this.fname.value + ' ' + this.lname.value,
+        from_email: this.email.value,
+        phone:      this.phone.value,
+        service:    this.service.value,
+        message:    this.message.value,
+      };
+
+      emailjs.send('service_yxsqyq4', 'template_q5lpp0i', params)
+        .then(() => {
+          const toast = document.getElementById('toast');
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 5000);
+          this.reset();
+        })
+        .catch((err) => {
+          alert('Something went wrong. Please try again or message us on Facebook.');
+          console.error('EmailJS error:', err);
+        })
+        .finally(() => {
+          btn.disabled = false;
+          btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Send Message';
+        });
     });
 
   </script>
