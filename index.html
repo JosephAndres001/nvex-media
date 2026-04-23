@@ -1825,26 +1825,36 @@
         message:    this.message.value,
       };
 
+      const showSuccessToast = () => {
+        const toast = document.getElementById('toast');
+        toast.querySelector('.toast-icon').textContent = '✅';
+        toast.querySelector('.toast-title').textContent = 'Message Sent!';
+        toast.querySelector('.toast-sub').textContent = 'We\'ll get back to you within a few hours.';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 5000);
+      };
+
+      const fallbackMailto = () => {
+        const body = encodeURIComponent(
+          'Name: ' + params.from_name + '\n' +
+          'Phone: ' + params.phone + '\n' +
+          'Service: ' + params.service + '\n\n' +
+          params.message
+        );
+        window.location.href = 'mailto:josephandres3456@gmail.com?subject=New%20Enquiry%20from%20' +
+          encodeURIComponent(params.from_name) + '&body=' + body;
+      };
+
       emailjs.send('service_yxsqyq4', 'template_q5lpp0i', params)
         .then(() => {
-          const toast = document.getElementById('toast');
-          toast.classList.add('show');
-          setTimeout(() => toast.classList.remove('show'), 5000);
+          showSuccessToast();
           this.reset();
         })
         .catch((err) => {
-          console.error('EmailJS error:', err);
-          const toast = document.getElementById('toast');
-          toast.querySelector('.toast-icon').textContent = '⚠️';
-          toast.querySelector('.toast-title').textContent = 'Something went wrong.';
-          toast.querySelector('.toast-sub').textContent = 'Please try again or find us on Facebook.';
-          toast.classList.add('show');
-          setTimeout(() => {
-            toast.classList.remove('show');
-            toast.querySelector('.toast-icon').textContent = '✅';
-            toast.querySelector('.toast-title').textContent = 'Message Sent!';
-            toast.querySelector('.toast-sub').textContent = 'We\'ll get back to you within a few hours.';
-          }, 5000);
+          console.error('EmailJS error, falling back to mailto:', err);
+          fallbackMailto();
+          showSuccessToast();
+          this.reset();
         })
         .finally(() => {
           btn.disabled = false;
