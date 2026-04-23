@@ -1834,25 +1834,13 @@
         setTimeout(() => toast.classList.remove('show'), 5000);
       };
 
-      const fallbackMailto = () => {
-        const body = encodeURIComponent(
-          'Name: ' + params.from_name + '\n' +
-          'Phone: ' + params.phone + '\n' +
-          'Service: ' + params.service + '\n\n' +
-          params.message
-        );
-        window.location.href = 'mailto:josephandres3456@gmail.com?subject=New%20Enquiry%20from%20' +
-          encodeURIComponent(params.from_name) + '&body=' + body;
-      };
-
       emailjs.send('service_yxsqyq4', 'template_q5lpp0i', params)
         .then(() => {
           showSuccessToast();
           this.reset();
         })
         .catch((err) => {
-          console.error('EmailJS error, falling back to mailto:', err);
-          fallbackMailto();
+          console.error('EmailJS error:', err);
           showSuccessToast();
           this.reset();
         })
